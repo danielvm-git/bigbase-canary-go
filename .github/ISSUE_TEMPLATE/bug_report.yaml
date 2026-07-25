@@ -1,0 +1,61 @@
+name: Bug report
+description: Report a defect in the canary site or its CI/CD pipeline
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug report! Before you continue,
+        please search existing issues to avoid duplicates.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What's wrong?
+      description: A clear description of the defect. What did you expect, and what happened instead?
+      placeholder: "The live site at go.bigbase.click returns HTTP 5xx…"
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Affected version
+      description: What version is shown in the site footer, or what commit SHA?
+      placeholder: "v0.1.0"
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: How to reproduce
+      description: Steps to reproduce the behavior.
+      placeholder: "1. curl https://go.bigbase.click\n2. …"
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which area?
+      options:
+        - Go server (main.go)
+        - CI/CD pipeline (workflows)
+        - big-release integration
+        - bigbase-deploy integration
+        - Documentation / specs
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What you expected to see.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Logs, screenshots, or anything else relevant.
+    validations:
+      required: false

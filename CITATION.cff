@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+title: bigbase-canary-go
+message: >-
+  If you use this canary or its pipeline pattern in your work, please
+  cite this repository.
+type: software
+authors:
+  - given-names: Daniel
+    family-names: Gonzalez
+    alias: danielvm-git
+repository-code: "https://github.com/danielvm-git/bigbase-canary-go"
+url: "https://github.com/danielvm-git/bigbase-canary-go"
+abstract: >-
+  A minimal Go HTTP canary site whose sole job is to be a regression
+  signal proving that big-release and the bigbase-deploy GitHub Action
+  still work together end-to-end.
+keywords:
+  - canary
+  - regression-testing
+  - go
+  - big-release
+  - ci-cd
+license: MIT
+version: 0.1.0
+date-released: "2026-07-25"

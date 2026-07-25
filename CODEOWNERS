@@ -1,0 +1,21 @@
+# CODEOWNERS — code ownership rules for bigbase-canary-go.
+#
+# Each line: <path pattern> @<owner>
+# GitHub requests review from the owner(s) for any PR touching the path.
+# See https://docs.github.com/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default — everything not matched below
+*                           @danielvm-git
+
+# The Go source — the actual canary
+/main.go                    @danielvm-git
+/main_test.go               @danielvm-git
+
+# The CI/CD pipeline — higher review bar
+/.github/workflows/         @danielvm-git
+
+# Project specs and planning
+/specs/                     @danielvm-git
+
+# Release configuration
+/.big-release.yml           @danielvm-git

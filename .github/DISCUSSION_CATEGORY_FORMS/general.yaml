@@ -1,0 +1,34 @@
+# Discussion category form for the "General" Q&A category.
+# GitHub Discussions form schema: https://docs.github.com/discussions
+
+title: General question or discussion
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for starting a discussion! For questions about the canary,
+        the release→deploy pipeline, or how things are wired, you're in the
+        right place.
+
+        For **bugs**, use the Bug Report issue template instead.
+  - type: textarea
+    id: body
+    attributes:
+      label: Your question or topic
+      description: Be specific about what you're asking.
+      placeholder: "How does the big-release integration work…?"
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which area does this relate to?
+      options:
+        - Go server
+        - CI/CD pipeline
+        - big-release
+        - bigbase-deploy
+        - Documentation
+        - Not sure / general
+    validations:
+      required: false

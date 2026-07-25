@@ -1,0 +1,14 @@
+# Issue template chooser configuration.
+# Docs: https://docs.github.com/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository
+
+blank_issues_enabled: false
+contact_links:
+  - name: Ask a question
+    url: https://github.com/danielvm-git/bigbase-canary-go/discussions
+    about: Questions about the canary or pipeline belong in Discussions, not Issues.
+  - name: Report a security vulnerability
+    url: https://github.com/danielvm-git/bigbase-canary-go/security/advisories/new
+    about: Found a security issue? Use private vulnerability reporting — do NOT open a public issue. See SECURITY.md.
+  - name: Check the live canary
+    url: https://go.bigbase.click
+    about: The live canary site — see which version is currently deployed.

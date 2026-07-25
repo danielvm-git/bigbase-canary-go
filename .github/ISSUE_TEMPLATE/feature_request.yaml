@@ -1,0 +1,43 @@
+name: Feature request
+description: Suggest a change to the canary or its pipeline
+title: "[feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the suggestion! Before proposing, please read
+        `specs/product/SCOPE_LATEST.yaml` — most feature additions are
+        explicitly out of scope for this repo.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      description: Describe the gap or tension. What's currently hard or missing?
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: What change do you propose?
+      description: The concrete change you'd like to see.
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of change is this?
+      options:
+        - Pipeline improvement (CI/CD, release, deploy)
+        - Documentation / specs
+        - Structural alignment (big-docs gabarito)
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you've considered
+      description: What else did you consider, and why is this the better fit?
+    validations:
+      required: false
