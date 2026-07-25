@@ -1,0 +1,21 @@
+story: e01s01
+bcps: 3  # 6-step BCP method: trivial data shape, 1 integration point (bigbase REST), low uncertainty, single dev, no rollback complexity, CI/infra touch
+tasks:
+  - id: t1
+    title: Write failing test for GET / footer content
+    verify: "go test ./... -run TestFooterContainsVersion -v | grep FAIL"
+  - id: t2
+    title: Implement main.go to pass the test
+    verify: "go test ./... -count=1 -timeout 120s"
+  - id: t3
+    title: Add .big-release.yml
+    verify: "test -f .big-release.yml && grep -q 'tagFormat' .big-release.yml"
+  - id: t4
+    title: Copy + patch CI templates (test-build-release.yml, deploy.yml)
+    verify: "test -f .github/workflows/test-build-release.yml && test -f .github/workflows/deploy.yml && grep -q big-release .github/workflows/test-build-release.yml"
+  - id: t5
+    title: Provision bigbase site + GitHub secrets
+    verify: "gh secret list -R danielvm-git/bigbase-canary-go | grep -q BIGBASE_SITE_ID"
+  - id: t6
+    title: Land on main, confirm green CI + live deploy
+    verify: "gh run list -R danielvm-git/bigbase-canary-go --limit 2 --json conclusion -q '.[].conclusion' | grep -q success"

@@ -1,0 +1,52 @@
+core_value: >
+  Prove, on every push, that big-release and bigbase-deploy still work together —
+  a minimal Go site that exists to be a regression signal, not a product.
+
+summary: >
+  bigbase-canary-go is the Go member of a four-language canary fleet (go/python/node/php)
+  standing up the smallest possible app in each stack, wired through the same
+  release-and-deploy pipeline real bigbase-hosted projects use. Each push to main
+  runs test-build-release.yml, which on success triggers deploy.yml: big-release
+  cuts a semver tag + changelog entry from Conventional Commits, then bigbase-deploy
+  ships that exact commit to go.bigbase.click and health-checks it. The app itself
+  has exactly one job: read VERSION and render it in an HTML footer, so a human (or
+  a follow-up curl) can visually confirm which commit is actually live. Nothing about
+  this repo is meant to grow — it succeeds by staying boring.
+
+in_scope:
+  - item: Minimal Go HTTP server (net/http, no framework) serving one route
+    maps_to: e01s01
+  - item: VERSION file read at request time, rendered into an HTML footer
+    maps_to: e01s01
+  - item: .big-release.yml (tagFormat v${version}, plugins changelog/git/github)
+    maps_to: e01s01
+  - item: CI via .github's test-build-release-go.yml + deploy-go.yml pair, release job patched to run big-release instead of semantic-release
+    maps_to: e01s01
+  - item: bigbase site provisioning (site "go" -> go.bigbase.click) and GitHub Actions secrets (BIGBASE_SITE_ID, BIGBASE_DEPLOY_TOKEN)
+    maps_to: e01s01
+
+out_of_scope:
+  - item: Any real product feature (auth, persistence, multi-page routing, templates beyond one footer string)
+    reason: not valuable — this repo's value is being small and stable, not featureful
+  - item: Non-Go implementations (Python/Node/PHP canaries)
+    reason: deferred to sibling repos bigbase-canary-python/node/php, same arc applied independently
+  - item: Load testing, uptime SLOs, alerting
+    reason: too risky/heavy for a repo whose whole point is minimalism; the health-check step in deploy.yml is the only monitoring this needs
+  - item: Promoting the CI template changes upstream into .github's shared workflow-templates
+    reason: depends on the PHP canary proving the pattern first (tracked separately in the .github repo's own release plan)
+
+constraints:
+  tech: "Go 1.22+, GitHub Actions (ubuntu-22.04 runners), bigbase.click as the only deploy target"
+  time: "single-session build, no phased rollout"
+  resource: "solo developer (danielvm-git), solo-git integrate profile (land-branch.sh, no PR ceremony required)"
+
+success_criteria:
+  - A push to main produces a green "Test Build Release" run and a green "Deploy" run triggered off it
+  - "curl https://go.bigbase.click returns the current VERSION file's contents in the footer"
+  - A second commit (any Conventional Commit) produces a second tag via big-release and a fresh deploy, proving the loop and not just first boot
+
+references:
+  - path: ../../../../.claude/plans/plan-to-generate-this-cryptic-perlis.md
+    note: approved cross-repo plan this scope was sliced from
+  - path: https://github.com/danielvm-git/big-release
+  - path: https://github.com/danielvm-git/.github/blob/main/actions/bigbase-deploy/action.yml

@@ -1,0 +1,7 @@
+id: e01
+title: Canary site scaffold
+scope_ref: ../../product/SCOPE_LATEST.yaml
+stories:
+  - id: e01s01
+    title: Stand up the Go canary site end-to-end
+    risk: P1  # pipeline correctness is the entire point, even though the app is trivial
