@@ -18,7 +18,15 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	_, _ = fmt.Fprintf(w, "<h1>bigbase canary (Go)</h1><footer>v%s</footer>", version)
 }
 
+func listenAddr() string {
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	return ":" + port
+}
+
 func main() {
 	http.HandleFunc("/", handler)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(listenAddr(), nil))
 }
