@@ -9,6 +9,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- big-release managed -->
 
+## [0.2.1] - 2026-07-25
+
+### Fixed
+
+- **cicd:** update VERSION file after big-release cuts a new version ([43c5a93](https://github.com/danielvm-git/bigbase-canary-go/commit/43c5a9306aacdc5c4c7613f0cd7ef37fe20bc30f))
+- **cicd:** update VERSION file via big-release exec plugin ([19d4537](https://github.com/danielvm-git/bigbase-canary-go/commit/19d4537c076fec87bf1737748d783434849d3f0e))
+
+## [0.2.0] - 2026-07-25
+
+### Added
+
+- **github:** add Wave 1 community contract files ([a189ccb](https://github.com/danielvm-git/bigbase-canary-go/commit/a189ccbaf602341cdc2874893cbc72eedae851df))
+
 ## [0.1.0] - 2026-07-25
 
 ### Added

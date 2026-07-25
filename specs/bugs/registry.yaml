@@ -1,0 +1,9 @@
+bugs:
+  - id: BUG-2026-07-25T040900
+    title: big-release does not update VERSION file
+    scope: cicd
+    severity: medium
+    priority: high
+    status: fix_implemented
+    reported: 2026-07-25T04:09:00Z
+    github_issue: 3
