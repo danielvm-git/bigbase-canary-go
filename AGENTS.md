@@ -58,6 +58,16 @@ Stack: Go 1.22+, standard library `net/http` only, no framework, no external dep
 
 Single `main.go`: one HTTP handler reads the `VERSION` file at request time and renders it into an HTML footer. No routing layer, no modules, no persistence.
 
+## Observability
+
+| What | Command |
+|------|---------|
+| Is the pipeline green? | `gh run list -R danielvm-git/bigbase-canary-go --limit 2` |
+| Is the site live and on the expected version? | `curl -s https://go.bigbase.click` (footer shows the deployed `VERSION`) |
+| Did the last deploy pass its health check? | Check the `Health check` step log in the `Deploy` workflow run — `✅ Site LIVE (HTTP 200)` or an `::error::` line |
+
+No structured logging is wired in — the app has no logic worth logging beyond serving one static-ish response; the CI run log and the health-check step above are this repo's entire observability surface.
+
 ## Conventions
 
 - Keep `main.go` a single minimal file — no premature package split.

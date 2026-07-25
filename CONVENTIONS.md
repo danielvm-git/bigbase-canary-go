@@ -43,6 +43,10 @@ Discovered fixes ship in the same land as the original work, in separate commits
 
 **Banned dismissive phrases:** "pre-existing", "unrelated to this session", "not introduced by my changes", "out of scope" (when ignoring a red gate) — none of these waive a red gate. Fix or log instead.
 
+## Pre-commit hook (`hook-commits`, adapted)
+
+Fresh clone: `git config core.hooksPath .githooks`. `.githooks/pre-commit` runs `scripts/preflight.sh` before every commit — a red Preflight blocks the commit locally, before it ever reaches CI.
+
 ## specs/ — All Planning Output Goes Here
 
 - `specs/state.yaml` — active session, handoff
