@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- big-release managed -->
 
+## [0.2.2] - 2026-07-25
+
+### Fixed
+
+- **test:** read version from VERSION file instead of hard-coding ([9f531ec](https://github.com/danielvm-git/bigbase-canary-go/commit/9f531ec038dc9d9741d49d3b1d9ac2a6ef8eb31b))
+
 ## [0.2.1] - 2026-07-25
 
 ### Fixed
