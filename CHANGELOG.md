@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <!-- big-release managed -->
 
+## [0.2.0] - 2026-07-25
+
+### Added
+
+- **github:** add Wave 1 community contract files ([a189ccb](https://github.com/danielvm-git/bigbase-canary-go/commit/a189ccbaf602341cdc2874893cbc72eedae851df))
+
 ## [0.1.0] - 2026-07-25
 
 ### Added
