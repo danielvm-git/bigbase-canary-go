@@ -4,19 +4,26 @@ package main
 
 import (
 	"net/http/httptest"
+	"os"
 	"strings"
 	"testing"
 )
 
 func TestFooterContainsVersion(t *testing.T) {
+	versionBytes, err := os.ReadFile("VERSION")
+	if err != nil {
+		t.Fatalf("failed to read VERSION file: %v", err)
+	}
+	expectedVersion := strings.TrimSpace(string(versionBytes))
+
 	req := httptest.NewRequest("GET", "/", nil)
 	rec := httptest.NewRecorder()
 
 	handler(rec, req)
 
 	body := rec.Body.String()
-	if !strings.Contains(body, "0.1.0") {
-		t.Fatalf("expected footer to contain version 0.1.0, got: %s", body)
+	if !strings.Contains(body, expectedVersion) {
+		t.Fatalf("expected footer to contain version %s, got: %s", expectedVersion, body)
 	}
 }
 
