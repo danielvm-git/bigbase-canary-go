@@ -6,8 +6,3 @@ plugins:
   - changelog
   - git
   - github
-  - exec
-
-exec:
-  prepareCmd: |
-    echo "${nextRelease.version}" > VERSION
