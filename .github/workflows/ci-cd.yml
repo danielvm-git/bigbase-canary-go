@@ -1,0 +1,19 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+concurrency:
+  group: pipeline-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  ci-cd:
+    uses: danielvm-git/.github/.github/workflows/test-build-release-go.yml@main
+    with:
+      site_url: "https://go.bigbase.click"
+      release_tool: "big-release"
+    secrets: inherit

@@ -1,6 +1,6 @@
 id: e02
 title: Adapt to Centralized CI/CD Template Pattern
-status: in_progress
+status: done
 bcps: 2
 stories:
   - id: e02s01

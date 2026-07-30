@@ -1,10 +1,10 @@
 workflow_mode: solo-git
 session:
-  active_epic: e01
-  active_story: e01s01
+  active_epic: e02
+  active_story: e02s01
 git:
-  branch: main
+  branch: feat/e02s01-centralized-cicd
 handoff:
-  next_skill: slice-tasks
+  next_skill: release-branch
 metrics:
   story_start: null
