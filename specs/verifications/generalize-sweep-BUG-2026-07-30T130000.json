@@ -1,0 +1,9 @@
+{
+  "defect_class": "missing-content-type-header",
+  "grep_pattern": "Fprintf.*w.*<",
+  "match_count": 0,
+  "sweep_scope": "**/*.go",
+  "patched_in_pr": ["main.go:21"],
+  "tracked_issues": [],
+  "notes": "Only 1 handler in codebase; Content-Type header now set before Fprintf"
+}
