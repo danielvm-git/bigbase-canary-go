@@ -1,0 +1,32 @@
+story_id: e02s01
+title: Wire central CI/CD reusable workflow and decommission legacy workflows
+status: failing
+bcps: 2
+tasks:
+  - id: 1
+    description: "Create .github/workflows/ci-cd.yml referencing central reusable workflow test-build-release-go.yml@main"
+    verify: "test -f .github/workflows/ci-cd.yml && grep -q 'uses: danielvm-git/.github/.github/workflows/test-build-release-go.yml@main' .github/workflows/ci-cd.yml"
+    risk: P1
+    status: failing
+    allure:
+      severity: high
+      categories:
+        - "CI/CD"
+  - id: 2
+    description: "Decommission obsolete standalone workflow files test-build-release.yml and deploy.yml"
+    verify: "[ ! -f .github/workflows/test-build-release.yml ] && [ ! -f .github/workflows/deploy.yml ]"
+    risk: P2
+    status: failing
+    allure:
+      severity: normal
+      categories:
+        - "CI/CD"
+  - id: 3
+    description: "Run full local preflight validation suite"
+    verify: "go vet ./... && golangci-lint run && go test ./... -count=1 -timeout 120s && go build ./..."
+    risk: P0
+    status: failing
+    allure:
+      severity: critical
+      categories:
+        - "Preflight"

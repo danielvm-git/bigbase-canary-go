@@ -1,12 +1,18 @@
 release:
-  version: "0.1.0"  # mirror only — authority is `gh release view` / git tags once big-release runs
+  version: "0.2.0"
   bump_hint: minor
-  codename: canary-genesis
+  codename: centralized-cicd
 
 epics:
   - id: e01
     title: Canary site scaffold
     wsjf: 1
-    bcps_total: null  # set by plan-work once e01s01 is sized
+    bcps_total: 3
     stories:
       - e01s01
+  - id: e02
+    title: Adapt to Centralized CI/CD Template Pattern
+    wsjf: 2
+    bcps_total: 2
+    stories:
+      - e02s01

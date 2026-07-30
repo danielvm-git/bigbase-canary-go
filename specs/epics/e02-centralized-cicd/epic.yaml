@@ -1,0 +1,9 @@
+id: e02
+title: Adapt to Centralized CI/CD Template Pattern
+status: in_progress
+bcps: 2
+stories:
+  - id: e02s01
+    title: Wire central CI/CD reusable workflow and decommission legacy workflows
+    bcps: 2
+    delta: MODIFIED
