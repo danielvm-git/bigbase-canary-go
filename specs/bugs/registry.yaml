@@ -4,6 +4,108 @@ bugs:
     scope: cicd
     severity: medium
     priority: high
-    status: fix_implemented
+    status: fixed
     reported: 2026-07-25T04:09:00Z
     github_issue: 3
+    resolution: Workflow step added to test-build-release.yml that updates VERSION from git tag after big-release runs
+
+  - id: BUG-2026-07-30T130000
+    title: Handler missing Content-Type header
+    scope: handler
+    severity: medium
+    priority: p2
+    status: fixed
+    reported: 2026-07-30T13:00:00Z
+    github_issue: null
+    what_happened: Handler writes HTML response without setting Content-Type header
+    what_expected: Handler should set Content-Type: text/html; charset=utf-8
+    root_cause: handler() calls fmt.Fprintf with HTML but never sets response headers
+    risk_level: low
+    notes: bigbase platform adds Content-Type in production; only visible when running locally
+    files_changed: main.go
+    approach: Added w.Header().Set(Content-Type, text/html; charset=utf-8) before fmt.Fprintf
+    new_tests: 1
+    type_check: pass
+    lint: pass
+    commit_type: fix
+    commit_message: "fix(handler): set Content-Type header for HTML response"
+    file: specs/bugs/BUG-2026-07-30T130000.md
+
+  - id: BUG-2026-07-30T130100
+    title: Silent fallback on VERSION read failure
+    scope: handler
+    severity: low
+    priority: p3
+    status: fixed
+    reported: 2026-07-30T13:01:00Z
+    github_issue: null
+    what_happened: If VERSION file is missing or unreadable, handler silently serves vunknown with HTTP 200
+    what_expected: Should log the error prominently
+    root_cause: os.ReadFile error is silently swallowed with fallback to unknown
+    risk_level: low
+    notes: Masks deployment failures where VERSION isnt properly updated
+    files_changed: main.go
+    approach: Added log.Printf for VERSION read errors in else branch
+    new_tests: 0
+    type_check: pass
+    lint: pass
+    commit_type: fix
+    commit_message: "fix(handler): log VERSION read errors instead of silent fallback"
+    file: specs/bugs/BUG-2026-07-30T130100.md
+
+  - id: BUG-2026-07-30T130200
+    title: Test coverage gaps for error paths
+    scope: tests
+    severity: medium
+    priority: p2
+    status: fixed
+    reported: 2026-07-30T13:02:00Z
+    github_issue: null
+    what_happened: No test for missing VERSION file, no test for Content-Type header, version check is loose
+    what_expected: Tests should cover missing VERSION fallback, Content-Type header, and version placement
+    root_cause: Tests written for happy path only
+    risk_level: low
+    files_changed: main_test.go
+    approach: Added TestHandlerSetsContentType and TestHandlerMissingVersionFile
+    new_tests: 2
+    type_check: pass
+    lint: pass
+    commit_type: test
+    commit_message: "test(handler): add coverage for Content-Type header and missing VERSION fallback"
+    file: specs/bugs/BUG-2026-07-30T130200.md
+
+  - id: BUG-2026-07-30T130300
+    title: Dead logic in deploy health check
+    scope: deploy
+    severity: low
+    priority: p3
+    status: fixed
+    reported: 2026-07-30T13:03:00Z
+    github_issue: null
+    what_happened: Health check accepts HTTP 301/302 but handler never redirects
+    what_expected: Health check should only accept 200
+    root_cause: Health check copied from template that handles redirect-capable sites
+    risk_level: low
+    notes: Dead logic not a bug; could mask misconfiguration if platform starts redirecting
+    files_changed: .github/workflows/deploy.yml
+    approach: Removed 301/302 from accepted status codes; only accept 200
+    new_tests: 0
+    type_check: pass
+    lint: pass
+    commit_type: fix
+    commit_message: "fix(deploy): accept only HTTP 200 in health check"
+    file: specs/bugs/BUG-2026-07-30T130300.md
+
+  - id: BUG-2026-07-30T130400
+    title: big-release installed via curl without integrity verification
+    scope: ci
+    severity: low
+    priority: p3
+    status: open
+    reported: 2026-07-30T13:04:00Z
+    github_issue: https://github.com/danielvm-git/big-release/issues/67
+    what_happened: test-build-release.yml installs big-release via curl without SHA256 hash verification
+    what_expected: Binary should be verified against a known hash
+    root_cause: Convenience over security; internal tool reduces severity
+    risk_level: low
+    notes: Supply chain risk for CI pipeline; requires coordination with big-release to publish hashes

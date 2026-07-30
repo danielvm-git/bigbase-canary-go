@@ -14,7 +14,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	version := "unknown"
 	if err == nil {
 		version = strings.TrimSpace(string(v))
+	} else {
+		log.Printf("VERSION read error: %v", err)
 	}
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	_, _ = fmt.Fprintf(w, "<h1>bigbase canary (Go)</h1><footer>v%s</footer>", version)
 }
 

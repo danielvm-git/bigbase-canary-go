@@ -1,0 +1,9 @@
+{
+  "defect_class": "silent-error-swallowing",
+  "grep_pattern": "if err == nil",
+  "match_count": 0,
+  "sweep_scope": "**/*.go",
+  "patched_in_pr": ["main.go:15"],
+  "tracked_issues": [],
+  "notes": "Only 1 error handling path in codebase; now logs via log.Printf in else branch"
+}

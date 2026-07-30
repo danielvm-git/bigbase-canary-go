@@ -1,0 +1,9 @@
+{
+  "defect_class": "dead-status-code-logic",
+  "grep_pattern": "301.*302|302.*301",
+  "match_count": 0,
+  "sweep_scope": ".github/workflows/*.yml",
+  "patched_in_pr": ["deploy.yml:69"],
+  "tracked_issues": [],
+  "notes": "Removed 301/302 from health check; only HTTP 200 accepted"
+}
