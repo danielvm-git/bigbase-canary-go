@@ -66,7 +66,7 @@ jobs:
           INTERVAL=10
           for i in $(seq 1 "$ATTEMPTS"); do
             STATUS=$(curl -s -o /dev/null -w '%{http_code}' "${{ env.SITE_URL }}" || echo "000")
-            if [ "$STATUS" = "200" ] || [ "$STATUS" = "301" ] || [ "$STATUS" = "302" ]; then
+            if [ "$STATUS" = "200" ]; then
               echo "✅ Site LIVE (HTTP $STATUS)"
               exit 0
             fi
