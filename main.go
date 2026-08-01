@@ -2,12 +2,26 @@
 package main
 
 import (
-	"fmt"
+	_ "embed"
+	"html/template"
 	"log"
 	"net/http"
 	"os"
 	"strings"
 )
+
+//go:embed index.html
+var indexHTML string
+
+// indexTmpl uses [[ ]] delimiters so the {{ }} in embedded GitHub Actions
+// workflow snippets are passed through to the browser verbatim.
+var indexTmpl = template.Must(
+	template.New("index").Delims("[[", "]]").Parse(indexHTML),
+)
+
+type pageData struct {
+	Version string
+}
 
 func handler(w http.ResponseWriter, r *http.Request) {
 	v, err := os.ReadFile("VERSION")
@@ -18,7 +32,9 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		log.Printf("VERSION read error: %v", err)
 	}
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	_, _ = fmt.Fprintf(w, "<h1>bigbase canary (Go)</h1><footer>v%s</footer>", version)
+	if err := indexTmpl.Execute(w, pageData{Version: version}); err != nil {
+		log.Printf("template render error: %v", err)
+	}
 }
 
 func listenAddr() string {

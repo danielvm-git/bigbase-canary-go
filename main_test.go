@@ -23,7 +23,7 @@ func TestFooterContainsVersion(t *testing.T) {
 
 	body := rec.Body.String()
 	if !strings.Contains(body, expectedVersion) {
-		t.Fatalf("expected footer to contain version %s, got: %s", expectedVersion, body)
+		t.Fatalf("expected body to contain version %s, got: %s", expectedVersion, body)
 	}
 }
 
@@ -54,6 +54,7 @@ func TestHandlerSetsContentType(t *testing.T) {
 	}
 }
 
+// scenario: SC-e01s01-P1-05 — missing VERSION falls back to "unknown", page still renders 200
 func TestHandlerMissingVersionFile(t *testing.T) {
 	dir := t.TempDir()
 	orig, err := os.Getwd()
@@ -75,10 +76,30 @@ func TestHandlerMissingVersionFile(t *testing.T) {
 	handler(rec, req)
 
 	body := rec.Body.String()
-	if !strings.Contains(body, "vunknown") {
-		t.Fatalf("expected vunknown in body when VERSION missing, got: %s", body)
+	if !strings.Contains(body, "unknown") {
+		t.Fatalf("expected 'unknown' in body when VERSION missing, got: %s", body)
 	}
 	if rec.Code != 200 {
 		t.Fatalf("expected 200, got %d", rec.Code)
 	}
+}
+
+// SC-e01s01-P1-06 — template must not expose raw [[ ]] delimiters to the browser
+func TestHandlerNoRawTemplateDelimiters(t *testing.T) {
+	req := httptest.NewRequest("GET", "/", nil)
+	rec := httptest.NewRecorder()
+
+	handler(rec, req)
+
+	body := rec.Body.String()
+	if strings.Contains(body, "[[") || strings.Contains(body, "]]") {
+		t.Fatalf("response contains unrendered template delimiters: %s", body[:min(200, len(body))])
+	}
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
 }
